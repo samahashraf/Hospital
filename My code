@@ -1,0 +1,119 @@
+INSERT INTO Patient (Patient_ID, First_Name, Last_Name, Gender, Address, Phone_Number, Doctor_ID )
+VALUES (1, 'Samah', 'Ashraf', 'Female', 'Egypt',123456, 1)
+
+INSERT INTO Doctor(Doctor_ID, Name, Address,Gender, Specialty, PhoneNumber )
+VALUES (1, 'Ali' , 'Egypt','Male','Dentist', 01236542434)
+
+INSERT INTO [The Nurses](Nurse_ID, Name, Department, Gender, Address, Phone_Number, Doctor_ID )
+VALUES (1, 'Alaa Ahmed', 'Dental department', 'Female', 'Egypt',01378652360, 1)
+
+INSERT INTO [The bill](Bill_ID, Patient_Name,Doctor_Name, DateTime, Amount, Patient_ID )
+VALUES (1, 'Samah Ashraf', 'Dr.Ali', 20/6-6.20,500,1)
+
+INSERT INTO Diagnosis(Diagnosis_ID, Details, Remark,Diagnosis_date, Patient_ID )
+VALUES (1,'Take off wisdom tooth','it is necessary to follow up weekly','Thursady,june 20 ',1)
+
+UPDATE Doctor
+SET Name = 'Dr.Ali Mohamed Ahmed '
+WHERE Doctor_ID = 1;
+
+UPDATE [The bill]
+SET Doctor_Name = 'Dr.Ali Mohamed Ahmed '
+WHERE Bill_ID = 1;
+
+UPDATE [The bill]
+SET Amount = 700
+WHERE Bill_ID = 1;
+
+UPDATE [The Nurses]
+SET Phone_Number = 8753254
+WHERE Nurse_ID = 1;
+
+UPDATE Patient
+SET Address = 'Giza, Cairo, Egypt' 
+WHERE Patient_ID = 1;
+
+
+
+
+SELECT First_Name,Last_Name
+ FROM Patient
+ WHERE Patient_ID=1; 
+
+
+
+SELECT PhoneNumber
+FROM Doctor
+WHERE Name = 'Dr.Ali Mohamed Ahmed ';
+
+
+
+SELECT Details
+FROM Diagnosis
+WHERE Diagnosis_ID = 1;
+
+
+SELECT COUNT (Nurse_ID),Address
+FROM [The Nurses]
+GROUP BY Address
+ORDER BY COUNT(Nurse_ID) DESC;
+
+SELECT COUNT(Doctor_ID), Name
+FROM Doctor
+GROUP BY Name;
+
+
+SELECT Patient.Patient_ID, Doctor.Name, Patient.First_Name
+FROM Patient
+INNER JOIN Doctor ON Patient.Doctor_ID=Doctor.Doctor_ID;
+
+
+SELECT [The Nurses].Nurse_ID, Doctor.Specialty, [The Nurses].Name
+FROM [The Nurses]
+INNER JOIN Doctor ON [The Nurses].Doctor_ID=Doctor.Doctor_ID;
+
+SELECT [The bill].Bill_ID, Patient.First_Name, [The bill].Amount
+FROM [The bill]
+INNER JOIN Patient ON [The bill].Patient_ID=Patient.Patient_ID;
+
+SELECT Name
+FROM Patient
+LEFT JOIN Doctor
+ON Patient.Doctor_ID = Doctor.Doctor_ID;
+
+
+SELECT Name
+FROM Patient
+RIGHT JOIN Doctor
+ON Patient.Doctor_ID = Doctor.Doctor_ID;
+
+
+SELECT Diagnosis.Diagnosis_date, Patient.First_Name,Last_Name, Diagnosis.Remark
+FROM Diagnosis
+INNER JOIN Patient ON Diagnosis.Patient_ID=Patient.Patient_ID;
+
+
+
+SELECT Phone_Number
+FROM [The Nurses]
+FULL OUTER JOIN Doctor
+ON [The Nurses].Doctor_ID = Doctor.Doctor_ID
+WHERE Nurse_ID=1
+
+
+SELECT Last_Name
+FROM Patient, Doctor
+WHERE Patient_ID=1;
+
+
+
+DELETE FROM Doctor WHERE Name='Dr.Ali Mohamed Ahmed ';
+DELETE FROM Patient WHERE Patient_ID=1;
+DELETE FROM [The Nurses] WHERE Nurse_ID=1;
+DELETE FROM [The bill] WHERE Patient_ID=1;
+DELETE FROM Diagnosis WHERE Diagnosis_ID=1;
+DELETE FROM Doctor;
+DELETE FROM Patient;
+DELETE FROM [The Nurses];
+DELETE FROM [The bill];
+DELETE FROM Diagnosis;
